@@ -5,16 +5,23 @@ package cronin.matt.moovingbits.Model;
  */
 public class Request {
 
-    private int id;
+    private long id;
     private String route;
-    private int groupId;
+    private long domainId;
     private String type;
 
-    public Request(int id, String type, String route, int groupId) {
+    public Request(){
+        this.id = 0;
+        this.type = "GET";
+        this.route = "";
+        this.domainId = 0;
+    }
+
+    public Request(long id, String type, String route, long domainId) {
         this.id = id;
         this.type = type;
         this.route = route;
-        this.groupId = groupId;
+        this.domainId = domainId;
     }
 
     public String getRoute() {
@@ -25,11 +32,11 @@ public class Request {
         this.route = route;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -41,12 +48,12 @@ public class Request {
         this.type = type;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public long getDomainId() {
+        return domainId;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setDomainId(long domainId) {
+        this.domainId = domainId;
     }
 
     @Override

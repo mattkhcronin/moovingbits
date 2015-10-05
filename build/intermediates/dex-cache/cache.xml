@@ -2,32 +2,39 @@
 <items version="2" >
 
     <item
-        jar="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/pre-dexed/debug/classes-1b8038a8f6db8a1606788bbdffc2fe65128b6796.jar" />
-    </item>
-    <item
-        jar="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-80df16c62ede0a884053161099fd858f46254b6b.jar" />
+        <dex dex="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-1f09489e1b04fc31f9681ab680dcc1a8b2736f0a.jar" />
     </item>
     <item
-        jar="/Users/mattcronin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jar="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\pre-dexed\debug\classes-dc47377aabf8c21e694ecc9e798c137cca1458e7.jar" />
+    </item>
+    <item
+        jar="C:\Users\mcronin\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-7419814bf5c78851bc5214030e440f60eac3e9d0.jar" />
+        <dex dex="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-1845241da40c74fe4af2140121cfc694489ca9e2.jar" />
     </item>
     <item
-        jar="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jar="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/mattcronin/AndroidStudioProjects/MoovingBits/app/build/intermediates/pre-dexed/debug/classes-c878a28356a11663f08bec32b4981d483e4cd171.jar" />
+        <dex dex="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\pre-dexed\debug\classes-278a3b8bd6808745cfde3d490efa7cfcf08f469c.jar" />
+    </item>
+    <item
+        jar="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\mcronin\AndroidStudioProjects\moovingbits\app\build\intermediates\pre-dexed\debug\classes-4b85cd0b7bd633f810a3d4c5d8840ee69820b033.jar" />
     </item>
 
 </items>

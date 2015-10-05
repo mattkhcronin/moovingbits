@@ -6,9 +6,9 @@ import java.util.List;
  * Created by mattcronin on 10/2/15.
  */
 public interface CRUDHelper<E> {
-    void add(E item);
+    long add(E item);
     List<E> getAll();
-    E getItem(int id);
-    void delete(E item);
-    void update(int id, E item);
+    E getItem(long id);
+    void delete(long id);
+    void update(long id, E item);
 }
