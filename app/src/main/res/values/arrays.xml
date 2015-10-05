@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="response_array">
+        <item>GET</item>
+        <item>POST</item>
+        <item>PUT</item>
+        <item>DELETE</item>
+    </string-array>
+
+    <string-array name="test_array">
+        <item>web address 1</item>
+        <item>web address 2</item>
+    </string-array>
+</resources>
