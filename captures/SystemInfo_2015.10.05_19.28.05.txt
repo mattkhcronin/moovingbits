@@ -1,0 +1,34 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        2f195712 cronin.matt.moovingbits/.Activities.MainActivity
+
+Key Set Manager:
+  [cronin.matt.moovingbits]
+      Signing KeySets: 7
+
+Packages:
+  Package [cronin.matt.moovingbits] (1d9085d1):
+    userId=10058 gids=[3003]
+    pkg=Package{303dbee3 cronin.matt.moovingbits}
+    codePath=/data/app/cronin.matt.moovingbits-1
+    resourcePath=/data/app/cronin.matt.moovingbits-1
+    legacyNativeLibraryDir=/data/app/cronin.matt.moovingbits-1/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=1 targetSdk=23
+    versionName=1.0
+    splits=[base]
+    applicationInfo=ApplicationInfo{2105a0e0 cronin.matt.moovingbits}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    dataDir=/data/data/cronin.matt.moovingbits
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2015-10-05 19:26:35
+    firstInstallTime=2015-09-29 18:46:20
+    lastUpdateTime=2015-10-05 19:26:35
+    signatures=PackageSignatures{78540a4 [13a9ef99]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true hidden=false stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      android.permission.INTERNET
