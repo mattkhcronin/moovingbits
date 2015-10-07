@@ -33,4 +33,8 @@ public class Domain {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return URL;
+    }
 }

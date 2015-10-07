@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity$SelectionFragment">
 
-    <ListView
-        android:id="@android:id/list"
+    <ExpandableListView
+        android:id="@+id/domainlist"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        ></ListView>
+        ></ExpandableListView>
 
 </RelativeLayout>

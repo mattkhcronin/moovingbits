@@ -80,7 +80,7 @@ public class DomainRepository implements CRUDHelper<Domain> {
         ContentValues values = getContentValues(item);
 
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        db.update(databaseHelper.TABLE_DOMAIN,values,databaseHelper.COLUMN_DOMAIN_ID+"="+id, null);
+        db.update(databaseHelper.TABLE_DOMAIN, values, databaseHelper.COLUMN_DOMAIN_ID + "=" + id, null);
         db.close();
     }
 

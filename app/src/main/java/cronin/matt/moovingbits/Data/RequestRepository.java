@@ -90,6 +90,23 @@ public class RequestRepository implements CRUDHelper<Request> {
         db.close();
     }
 
+    public List<Request> getAllByDomain(long id){
+        String query = "SELECT * FROM " + databaseHelper.TABLE_REQUEST + " WHERE " + databaseHelper.COLUMN_DOMAIN_ID + " = " + id;
+
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Request> requests = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Request request = new Request(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getLong(3));
+            requests.add(request);
+        }
+        db.close();
+        return requests;
+    }
+
     private ContentValues getContentValues(Request request){
         ContentValues values = new ContentValues();
         //values.put(databaseHelper.COLUMN_REQUEST_ID, item.getId());
