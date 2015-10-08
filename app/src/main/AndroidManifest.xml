@@ -23,6 +23,11 @@
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".Activities.ResultActivity"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme" >
+            ></activity>
     </application>
 
 </manifest>

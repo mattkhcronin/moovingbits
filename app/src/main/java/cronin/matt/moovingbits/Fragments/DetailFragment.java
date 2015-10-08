@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import cronin.matt.moovingbits.API.CallAPI;
-import cronin.matt.moovingbits.API.PostExecutable;
 import cronin.matt.moovingbits.Activities.MainActivity;
 import cronin.matt.moovingbits.Data.CRUDHelper;
 import cronin.matt.moovingbits.Data.DomainRepository;
@@ -23,7 +22,7 @@ import cronin.matt.moovingbits.R;
 /**
  * Created by mattcronin on 9/30/15.
  */
-public class DetailFragment extends Fragment implements PostExecutable {
+public class DetailFragment extends Fragment implements CallAPI.PostExecutable, CallAPI.ResponseReadable, CallAPI.PreExecutable {
 
     private CRUDHelper domainRepository;
     private CRUDHelper requestRepository;
@@ -31,12 +30,16 @@ public class DetailFragment extends Fragment implements PostExecutable {
     private long domainId = 0;
     private Domain domain = null;
     private Request request = null;
+    private Callbackable activity;
+    private int responseCode;
+    private String responseMessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         domainRepository = new DomainRepository(getActivity());
         requestRepository = new RequestRepository(getActivity());
+        activity = (Callbackable)getActivity();
 
         Bundle bundle = this.getArguments();
 
@@ -127,13 +130,12 @@ public class DetailFragment extends Fragment implements PostExecutable {
     private void refreshView(){
         //Set up spinner with defaults: Get, Post, Put, Delete
         Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.response_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CallAPI.RequestMethod> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,CallAPI.RequestMethod.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         int position = 0;
         if (request.getType() != null) {
-            position = adapter.getPosition(request.getType());
+            position = adapter.getPosition(CallAPI.RequestMethod.valueOf(request.getType()));
         }
 
         spinner.setAdapter(adapter);
@@ -148,15 +150,37 @@ public class DetailFragment extends Fragment implements PostExecutable {
     }
 
     //call api
-    public void button_click(View view) {
-        CallAPI callAPI = new CallAPI("http://restfulapp.azurewebsites.net/", CallAPI.RequestMethod.GET, this);
-        callAPI.execute("api/cow");
+    public void CallAPIClick(View view) {
+        CallAPI callAPI = new CallAPI(domain.getURL(), CallAPI.RequestMethod.valueOf(request.getType()));
+        callAPI.setPostExecutable(this);
+        callAPI.setResponseReadable(this);
+        callAPI.setPreExecutable(this);
+        callAPI.execute(request.getRoute());
     }
 
     //Post execute on calling api
     @Override
-    public void Execute(String results) {
-        TextView textView = (TextView) getActivity().findViewById(R.id.text);
-        textView.setText(results);
+    public void PostExecute(String results) {
+        //Unlock user inputs
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        activity.MoveToResults(results, responseCode, responseMessage);
+    }
+
+    //return response codes from call. -1 if an expected error occurs, 0 for unexpected unhandled errors.
+    @Override
+    public void ReadResponse(int responseCode, String responseMessage) {
+        this.responseCode = responseCode;
+        this.responseMessage = responseMessage;
+    }
+
+    //PreExecute for call async task. Lock user inputs.
+    @Override
+    public void PreExecute() {
+        //lock user inputs while sending request
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public interface Callbackable {
+        void MoveToResults(String results, int responseCode, String responseMessage);
     }
 }

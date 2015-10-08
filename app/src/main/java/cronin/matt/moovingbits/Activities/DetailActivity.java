@@ -1,16 +1,22 @@
 package cronin.matt.moovingbits.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import cronin.matt.moovingbits.Fragments.DetailFragment;
 import cronin.matt.moovingbits.R;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements DetailFragment.Callbackable {
 
     public final static int DETAIL_REQUEST_CODE = 1001;
+    public final static String DETAIL_RESULTS = "detailResults";
+    public final static String DETAIL_RESPONSE_CODE = "detailResponseCode";
+    public final static String DETAIL_RESPONSE_MESSAGE = "detailResponseMessage";
+    public final static String DETAIL_BUNDLE = "detailBundle";
     private DetailFragment detailFragment;
 
     @Override
@@ -38,6 +44,9 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    public void CallAPIClick(View view) {
+        detailFragment.CallAPIClick(view);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -56,4 +65,15 @@ public class DetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void MoveToResults(String results, int responseCode, String responseMessage) {
+        Bundle bundle = new Bundle();
+        bundle.putString(DETAIL_RESULTS, results);
+        bundle.putInt(DETAIL_RESPONSE_CODE, responseCode);
+        bundle.putString(DETAIL_RESPONSE_MESSAGE, responseMessage);
+
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(DETAIL_BUNDLE, bundle);
+        startActivity(intent);
+    }
 }

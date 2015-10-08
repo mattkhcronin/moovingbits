@@ -6,5 +6,8 @@
     <string name="action_save">Save</string>
     <string name="action_copy">Copy</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
+
+    <string name="not_found">File or Directory not found</string>
 
 </resources>

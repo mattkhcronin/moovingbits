@@ -7,9 +7,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 /**
  * Created by mattcronin on 9/29/15.
@@ -22,11 +23,23 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     private String apiUrl = "";
 
-    public void setExecutable(PostExecutable executable) {
-        this.executable = executable;
+    public void setPostExecutable(PostExecutable executable) {
+        this.postExecutable = executable;
     }
 
-    private PostExecutable executable;
+    private PostExecutable postExecutable;
+
+    public void setPreExecutable(PreExecutable preExecutable) {
+        this.preExecutable = preExecutable;
+    }
+
+    private PreExecutable preExecutable;
+
+    public void setResponseReadable(ResponseReadable responseReadable) {
+        this.responseReadable = responseReadable;
+    }
+
+    private ResponseReadable responseReadable;
 
     public RequestMethod getRequestMethod() {
         return requestMethod;
@@ -39,27 +52,45 @@ public class CallAPI extends AsyncTask<String, String, String> {
     private RequestMethod requestMethod;
 
     public CallAPI(String apiUrlBase, RequestMethod requestMethod){
-        this(apiUrlBase, requestMethod, null);
-    }
-
-    public CallAPI(String apiUrlBase, RequestMethod requestMethod, PostExecutable executable){
         this.apiUrl = apiUrlBase;
         this.requestMethod = requestMethod;
-        this.executable = executable;
     }
 
     @Override
     protected String doInBackground(String... params) {
         String result = "";
+        String responseMessage = "";
+        int responseCode = 0;
+        HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(apiUrl + params[0]);
-            URLConnection urlConnection = url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            responseCode = urlConnection.getResponseCode();
+            responseMessage = urlConnection.getResponseMessage();
             result = readStream(inputStream);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            responseCode = -1;
+            responseMessage = "The requested URL was not in the correct format.";
+        } catch (UnknownHostException e){
+            responseCode = -1;
+            responseMessage = e.getMessage();
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                // Set response code if possible.
+                if (urlConnection != null) {
+                    responseCode = urlConnection.getResponseCode();
+                    responseMessage = urlConnection.getResponseMessage();
+                }
+            }catch (IOException e2){
+                e2.getStackTrace();
+                responseCode = -1;
+                responseMessage = "An unhandled error occured.";
+            }
+        }
+
+        if (responseReadable != null){
+            responseReadable.ReadResponse(responseCode, responseMessage);
         }
         return result;
     }
@@ -81,10 +112,29 @@ public class CallAPI extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if (executable != null){
-            executable.Execute(result);
+    protected void onPreExecute() {
+        if (preExecutable != null){
+            preExecutable.PreExecute();
         }
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (postExecutable != null){
+            postExecutable.PostExecute(result);
+        }
+    }
+
+    public interface PostExecutable {
+        void PostExecute(String results);
+    }
+
+    public interface PreExecutable {
+        void PreExecute();
+    }
+
+    public interface ResponseReadable{
+        void ReadResponse(int responseCode, String responseMessage);
     }
 
     public enum RequestMethod {
