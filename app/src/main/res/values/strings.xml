@@ -9,5 +9,8 @@
     <string name="title_activity_result">ResultActivity</string>
 
     <string name="not_found">File or Directory not found</string>
+    <string name="header_hint">Header</string>
+    <string name="body_hint">Body</string>
+    <string name="value_hint">Value</string>
 
 </resources>

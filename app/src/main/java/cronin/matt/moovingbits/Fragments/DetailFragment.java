@@ -8,24 +8,36 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cronin.matt.moovingbits.API.CallAPI;
 import cronin.matt.moovingbits.Activities.MainActivity;
+import cronin.matt.moovingbits.Data.BodyRepository;
 import cronin.matt.moovingbits.Data.CRUDHelper;
 import cronin.matt.moovingbits.Data.DomainRepository;
+import cronin.matt.moovingbits.Data.HeaderRepository;
 import cronin.matt.moovingbits.Data.RequestRepository;
+import cronin.matt.moovingbits.Model.Body;
+import cronin.matt.moovingbits.Model.BodyAdapter;
 import cronin.matt.moovingbits.Model.Domain;
+import cronin.matt.moovingbits.Model.Header;
+import cronin.matt.moovingbits.Model.HeaderAdapter;
 import cronin.matt.moovingbits.Model.Request;
 import cronin.matt.moovingbits.R;
 
 /**
  * Created by mattcronin on 9/30/15.
  */
-public class DetailFragment extends Fragment implements CallAPI.PostExecutable, CallAPI.ResponseReadable, CallAPI.PreExecutable {
+public class DetailFragment extends Fragment implements CallAPI.PostExecutable, CallAPI.ResponseReadable, CallAPI.PreExecutable, HeaderAdapter.OnFocusChangeListener, BodyAdapter.OnFocusChangeListener {
 
     private CRUDHelper domainRepository;
     private CRUDHelper requestRepository;
+    private HeaderRepository headerRepository;
+    private BodyRepository bodyRepository;
     private long requestId = 0;
     private long domainId = 0;
     private Domain domain = null;
@@ -39,6 +51,8 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         super.onCreate(savedInstanceState);
         domainRepository = new DomainRepository(getActivity());
         requestRepository = new RequestRepository(getActivity());
+        headerRepository = new HeaderRepository(getActivity());
+        bodyRepository = new BodyRepository(getActivity());
         activity = (Callbackable)getActivity();
 
         Bundle bundle = this.getArguments();
@@ -77,6 +91,8 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
 
     public void DeleteItem(){
         //remove domain and request from database.
+        headerRepository.deleteByRequest(requestId);
+        bodyRepository.deleteByRequest(requestId);
         requestRepository.delete(requestId);
         domainRepository.delete(domainId);
     }
@@ -147,6 +163,20 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         EditText urlText = (EditText) getActivity().findViewById(R.id.urlText);
         urlText.setText(domain.getURL());
 
+        List<Header> headers = new ArrayList<>();
+        headers.add(new Header());
+        HeaderAdapter headerArrayAdapter = new HeaderAdapter(getActivity(), R.layout.key_value_list_item,headers.toArray(new Header[headers.size()]));
+        headerArrayAdapter.setOnFocusChangeListener(this);
+        ListView headerView = (ListView)getActivity().findViewById(R.id.listHeaders);
+        headerView.setAdapter(headerArrayAdapter);
+
+        List<Body> bodies = new ArrayList<>();
+        bodies.add(new Body());
+        BodyAdapter bodyArrayAdapter = new BodyAdapter(getActivity(), R.layout.key_value_list_item, bodies.toArray(new Body[bodies.size()]));
+        bodyArrayAdapter.setOnFocusChangeListener(this);
+        ListView bodyView = (ListView)getActivity().findViewById(R.id.listBodies);
+        bodyView.setAdapter(bodyArrayAdapter);
+
     }
 
     //call api
@@ -166,7 +196,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         activity.MoveToResults(results, responseCode, responseMessage);
     }
 
-    //return response codes from call. -1 if an expected error occurs, 0 for unexpected unhandled errors.
+    //return response code from call. -1 if an expected error occurs, 0 for unexpected unhandled errors.
     @Override
     public void ReadResponse(int responseCode, String responseMessage) {
         this.responseCode = responseCode;
@@ -178,6 +208,28 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
     public void PreExecute() {
         //lock user inputs while sending request
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    //onfocuschange listener for HeaderAdapter
+    @Override
+    public void OnFocusChange(Header header) {
+        header.setRequestId(requestId);
+        if (header.getId() == 0){
+            headerRepository.add(header);
+        } else {
+            headerRepository.update(header.getId(), header);
+        }
+    }
+
+    //onfocuschange listener for BodyAdapter
+    @Override
+    public void OnFocusChange(Body body) {
+        body.setRequestId(requestId);
+        if (body.getId() == 0){
+            bodyRepository.add(body);
+        } else {
+            bodyRepository.update(body.getId(), body);
+        }
     }
 
     public interface Callbackable {
