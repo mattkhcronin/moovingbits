@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by mattcronin on 10/2/15.
- */
+        */
 public interface CRUDHelper<E> {
     long add(E item);
     List<E> getAll();

@@ -181,6 +181,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
 
     //call api
     public void CallAPIClick(View view) {
+        SaveItem();
         CallAPI callAPI = new CallAPI(domain.getURL(), CallAPI.RequestMethod.valueOf(request.getType()));
         callAPI.setPostExecutable(this);
         callAPI.setResponseReadable(this);
