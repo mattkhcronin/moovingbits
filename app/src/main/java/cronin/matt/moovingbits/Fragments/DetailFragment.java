@@ -170,13 +170,6 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         ListView headerView = (ListView)getActivity().findViewById(R.id.listHeaders);
         headerView.setAdapter(headerArrayAdapter);
 
-        List<Body> bodies = new ArrayList<>();
-        bodies.add(new Body());
-        BodyAdapter bodyArrayAdapter = new BodyAdapter(getActivity(), R.layout.key_value_list_item, bodies.toArray(new Body[bodies.size()]));
-        bodyArrayAdapter.setOnFocusChangeListener(this);
-        ListView bodyView = (ListView)getActivity().findViewById(R.id.listBodies);
-        bodyView.setAdapter(bodyArrayAdapter);
-
     }
 
     //call api

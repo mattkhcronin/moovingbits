@@ -2,6 +2,20 @@
 <items version="2" >
 
     <item
+        jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-d2bf678f542a2d61f40c108ae8a1687d33f3d7e3.jar" />
+    </item>
+    <item
+        jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/classes-d7a649399dba8a33fbd61307e8a89885e873ab22.jar" />
+    </item>
+    <item
         jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -21,20 +35,6 @@
         revision="22.0.1"
         sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
         <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-7419814bf5c78851bc5214030e440f60eac3e9d0.jar" />
-    </item>
-    <item
-        jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/classes-d7a649399dba8a33fbd61307e8a89885e873ab22.jar" />
-    </item>
-    <item
-        jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-d2bf678f542a2d61f40c108ae8a1687d33f3d7e3.jar" />
     </item>
 
 </items>

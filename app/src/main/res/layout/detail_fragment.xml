@@ -64,14 +64,4 @@
         android:layout_below="@+id/spinner"
         />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listBodies"
-        android:layout_above="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/halfView"
-        />
-
 </RelativeLayout>

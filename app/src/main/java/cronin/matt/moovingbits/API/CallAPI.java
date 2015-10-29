@@ -7,10 +7,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by mattcronin on 9/29/15.
@@ -22,6 +26,22 @@ public class CallAPI extends AsyncTask<String, String, String> {
     }
 
     private String apiUrl = "";
+
+    private Map<String, String> headers;
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    private String body = "";
+
+    public void addHeader(String field, String value) {
+        headers.put(field, value);
+    }
 
     public void setPostExecutable(PostExecutable executable) {
         this.postExecutable = executable;
@@ -51,9 +71,10 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     private RequestMethod requestMethod;
 
-    public CallAPI(String apiUrlBase, RequestMethod requestMethod){
+    public CallAPI(String apiUrlBase, RequestMethod requestMethod) {
         this.apiUrl = apiUrlBase;
         this.requestMethod = requestMethod;
+        headers = new HashMap<>();
     }
 
     @Override
@@ -65,6 +86,17 @@ public class CallAPI extends AsyncTask<String, String, String> {
         try {
             URL url = new URL(apiUrl + params[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod(requestMethod.toString());
+            //Set headers
+            if (!headers.isEmpty()) {
+                setUrlHeaders(urlConnection);
+            }
+
+            //send output stream if applicable
+            if (requestMethod == RequestMethod.POST || requestMethod == RequestMethod.PUT){
+                sendData(urlConnection);
+            }
+
             InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
             responseCode = urlConnection.getResponseCode();
             responseMessage = urlConnection.getResponseMessage();
@@ -72,7 +104,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         } catch (MalformedURLException e) {
             responseCode = -1;
             responseMessage = "The requested URL was not in the correct format.";
-        } catch (UnknownHostException e){
+        } catch (UnknownHostException e) {
             responseCode = -1;
             responseMessage = e.getMessage();
         } catch (IOException e) {
@@ -82,17 +114,39 @@ public class CallAPI extends AsyncTask<String, String, String> {
                     responseCode = urlConnection.getResponseCode();
                     responseMessage = urlConnection.getResponseMessage();
                 }
-            }catch (IOException e2){
+            } catch (IOException e2) {
                 e2.getStackTrace();
                 responseCode = -1;
                 responseMessage = "An unhandled error occured.";
             }
+        } finally{
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
         }
 
-        if (responseReadable != null){
+        if (responseReadable != null) {
             responseReadable.ReadResponse(responseCode, responseMessage);
         }
         return result;
+    }
+
+    private void setUrlHeaders(HttpURLConnection urlConnection){
+        Iterator iterator = headers.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, String> entry = (Map.Entry)iterator.next();
+            urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
+        }
+    }
+
+    private void sendData(HttpURLConnection urlConnection){
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+            outputStreamWriter.write(body);
+            outputStreamWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String readStream(InputStream inputStream) {
@@ -113,14 +167,14 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPreExecute() {
-        if (preExecutable != null){
+        if (preExecutable != null) {
             preExecutable.PreExecute();
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if (postExecutable != null){
+        if (postExecutable != null) {
             postExecutable.PostExecute(result);
         }
     }
@@ -133,7 +187,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         void PreExecute();
     }
 
-    public interface ResponseReadable{
+    public interface ResponseReadable {
         void ReadResponse(int responseCode, String responseMessage);
     }
 
