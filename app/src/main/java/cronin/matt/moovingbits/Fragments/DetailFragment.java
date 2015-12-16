@@ -49,7 +49,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         requestRepository = new RequestRepository(getActivity());
         headerRepository = new HeaderRepository(getActivity());
         bodyRepository = new BodyRepository(getActivity());
-        activity = (Callbackable)getActivity();
+        activity = (Callbackable) getActivity();
 
         Bundle bundle = this.getArguments();
 
@@ -58,9 +58,9 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         domainId = bundle.getLong(MainActivity.MAIN_DOMAIN_ID);
 
         // create empty request and domain or grab existing
-        if (requestId == 0){
+        if (requestId == 0) {
             request = new Request();
-        } else{
+        } else {
             request = (Request) requestRepository.getItem(requestId);
         }
 
@@ -85,7 +85,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         refreshView();
     }
 
-    public void DeleteItem(){
+    public void DeleteItem() {
         //remove domain and request from database.
         headerRepository.deleteByRequest(requestId);
         bodyRepository.deleteByRequest(requestId);
@@ -93,32 +93,35 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         domainRepository.delete(domainId);
     }
 
-    public void SaveItem(){
-        if (domainId == 0){
-            // add domain to database
-            domain = getDomain();
-            domainId = domainRepository.add(domain);
-            domain.setId(domainId);
+    public void SaveItem() {
+        domain = getDomain();
+        if (domain.getURL().isEmpty()) {
+            return;
         } else {
-            //update domain objects
-            domain = getDomain();
-            domainRepository.update(domainId, domain);
+            if (domainId == 0) {
+                // add domain to database
+                domainId = domainRepository.add(domain);
+                domain.setId(domainId);
+            } else {
+                //update domain objects
+                domainRepository.update(domainId, domain);
+            }
+
+            request = getRequest();
+            if (requestId == 0) {
+                // add domain to database
+                request.setDomainId(domainId);
+                requestId = requestRepository.add(request);
+                request.setId(requestId);
+            } else {
+                requestRepository.update(requestId, request);
+            }
         }
 
-        if (requestId == 0){
-            // add domain to database
-            request = getRequest();
-            request.setDomainId(domainId);
-            requestId = requestRepository.add(request);
-            request.setId(requestId);
-        } else {
-            request = getRequest();
-            requestRepository.update(requestId, request);
-        }
     }
 
     //create domain object based on current data selected
-    private Domain getDomain(){
+    private Domain getDomain() {
         Domain domain = new Domain();
         EditText urlText = (EditText) getActivity().findViewById(R.id.urlText);
         domain.setURL(urlText.getText().toString());
@@ -126,7 +129,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
     }
 
     //create request object based on current data selected
-    private Request getRequest(){
+    private Request getRequest() {
         Request request = new Request();
         request.setId(requestId);
         request.setDomainId(domainId);
@@ -139,10 +142,10 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         return request;
     }
 
-    private void refreshView(){
+    private void refreshView() {
         //Set up spinner with defaults: Get, Post, Put, Delete
         Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
-        ArrayAdapter<CallAPI.RequestMethod> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,CallAPI.RequestMethod.values());
+        ArrayAdapter<CallAPI.RequestMethod> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, CallAPI.RequestMethod.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         int position = 0;
@@ -204,7 +207,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
     @Override
     public void OnFocusChange(Header header) {
         header.setRequestId(requestId);
-        if (header.getId() == 0){
+        if (header.getId() == 0) {
             headerRepository.add(header);
         } else {
             headerRepository.update(header.getId(), header);
@@ -215,7 +218,7 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
     @Override
     public void OnFocusChange(Body body) {
         body.setRequestId(requestId);
-        if (body.getId() == 0){
+        if (body.getId() == 0) {
             bodyRepository.add(body);
         } else {
             bodyRepository.update(body.getId(), body);
