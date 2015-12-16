@@ -56,6 +56,7 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
             return true;
         } else if (id == R.id.action_delete){
             detailFragment.DeleteItem();
+            finish();
         } else if (id == R.id.action_save){
             detailFragment.SaveItem();
         } else if (id == android.R.id.home){

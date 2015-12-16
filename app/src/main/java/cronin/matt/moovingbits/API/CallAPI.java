@@ -93,9 +93,9 @@ public class CallAPI extends AsyncTask<String, String, String> {
             }
 
             //send output stream if applicable
-            if (requestMethod == RequestMethod.POST || requestMethod == RequestMethod.PUT){
-                sendData(urlConnection);
-            }
+//            if (requestMethod == RequestMethod.POST || requestMethod == RequestMethod.PUT){
+//                sendData(urlConnection);
+//            }
 
             InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
             responseCode = urlConnection.getResponseCode();
@@ -192,9 +192,11 @@ public class CallAPI extends AsyncTask<String, String, String> {
     }
 
     public enum RequestMethod {
-        GET,
+        GET
+        //TODO: add other request types
+        /*,
         POST,
         PUT,
-        DELETE
+        DELETE*/
     }
 }

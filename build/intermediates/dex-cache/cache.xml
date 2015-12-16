@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="/Users/mattcronin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-7419814bf5c78851bc5214030e440f60eac3e9d0.jar" />
+    </item>
+    <item
         jar="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -28,13 +35,6 @@
         revision="22.0.1"
         sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
         <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/classes-43639bc7b2ccef3b9afca28287d51253b7117ba1.jar" />
-    </item>
-    <item
-        jar="/Users/mattcronin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/Users/mattcronin/Repositories/moovingbits/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-7419814bf5c78851bc5214030e440f60eac3e9d0.jar" />
     </item>
 
 </items>

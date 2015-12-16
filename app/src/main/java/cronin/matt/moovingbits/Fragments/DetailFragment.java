@@ -8,11 +8,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cronin.matt.moovingbits.API.CallAPI;
 import cronin.matt.moovingbits.Activities.MainActivity;
@@ -163,12 +159,12 @@ public class DetailFragment extends Fragment implements CallAPI.PostExecutable, 
         EditText urlText = (EditText) getActivity().findViewById(R.id.urlText);
         urlText.setText(domain.getURL());
 
-        List<Header> headers = new ArrayList<>();
-        headers.add(new Header());
-        HeaderAdapter headerArrayAdapter = new HeaderAdapter(getActivity(), R.layout.key_value_list_item,headers.toArray(new Header[headers.size()]));
-        headerArrayAdapter.setOnFocusChangeListener(this);
-        ListView headerView = (ListView)getActivity().findViewById(R.id.listHeaders);
-        headerView.setAdapter(headerArrayAdapter);
+//        List<Header> headers = new ArrayList<>();
+//        headers.add(new Header());
+//        HeaderAdapter headerArrayAdapter = new HeaderAdapter(getActivity(), R.layout.key_value_list_item,headers.toArray(new Header[headers.size()]));
+//        headerArrayAdapter.setOnFocusChangeListener(this);
+//        ListView headerView = (ListView)getActivity().findViewById(R.id.listHeaders);
+//        headerView.setAdapter(headerArrayAdapter);
 
     }
 

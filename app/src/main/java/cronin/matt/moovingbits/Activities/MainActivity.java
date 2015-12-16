@@ -2,9 +2,11 @@ package cronin.matt.moovingbits.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import cronin.matt.moovingbits.Fragments.SelectionFragment;
 import cronin.matt.moovingbits.R;
@@ -21,6 +23,14 @@ public class MainActivity extends AppCompatActivity implements SelectionFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MoveToDetail(0,0);
+            }
+        });
     }
 
     @Override
